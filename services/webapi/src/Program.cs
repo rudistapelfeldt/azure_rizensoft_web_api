@@ -27,7 +27,7 @@ namespace Webapi
                         else if (context.HostingEnvironment.IsStaging() || context.HostingEnvironment.IsProduction())
                         {
                             var builtConfig = configBuilder.Build();
-                            configBuilder.AddAzureKeyVault(new Uri($"https://{builtConfig["KeyVaultName"]}.vault.azure.net/"), new DefaultAzureCredential());
+                                configBuilder.AddAzureKeyVault(new Uri($"https://{builtConfig["KeyVaultName"]}.vault.azure.net/"), new DefaultAzureCredential());
                         }
                     });
 
