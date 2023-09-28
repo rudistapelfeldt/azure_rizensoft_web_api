@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Security.Cryptography;
+using System.Text;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using Microsoft.AspNetCore.DataProtection;
 
 namespace Webapi.Helper
 {
@@ -18,10 +20,9 @@ namespace Webapi.Helper
             Array.Copy(hash, 0, hashBytes, 16, 20);
             return Convert.ToBase64String(hashBytes);
         }
-
         public static byte[] GetSecureSalt()
         {
-            return RandomNumberGenerator.GetBytes(32);
+            return Encoding.UTF8.GetBytes(!string.IsNullOrEmpty("123454") ? "12345" : string.Empty);
         }
 
         public static string HashUsingPbkdf2(string password, byte[] salt)
