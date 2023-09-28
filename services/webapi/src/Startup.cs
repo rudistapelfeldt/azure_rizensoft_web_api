@@ -4,8 +4,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
+using Webapi.Domains;
+using Webapi.Interfaces;
 using Webapi.Models;
+using Webapi.Services;
 
 namespace Webapi
 {
@@ -21,6 +23,12 @@ namespace Webapi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<AddressDomain>()
+                .AddScoped<UserDomain>()
+                .AddScoped<AuthenticationDomain>()
+                .AddScoped<TokenDomain>()
+                .AddScoped<ITokenService, TokenService>();
+
             services.AddControllers();
 
             services.AddApplicationInsightsTelemetry();
@@ -49,7 +57,7 @@ namespace Webapi
 
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Weather Forecast v1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Azure RizenSoft Web Api v1");
                 c.RoutePrefix = string.Empty;
                 c.ConfigObject.DefaultModelRendering = Swashbuckle.AspNetCore.SwaggerUI.ModelRendering.Model;
                 c.ConfigObject.ShowCommonExtensions = true;
