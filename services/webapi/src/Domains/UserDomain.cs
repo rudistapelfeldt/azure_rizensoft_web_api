@@ -132,7 +132,7 @@ namespace Webapi.Domains
                 existing.LastName = user.LastName;
                 existing.IdNumber = user.IdNumber;
                 existing.Active = user.Active;
-                existing.AddressIds = user.AddressIds;
+                existing.AddressId = user.AddressId;
                 existing.ConfirmPassword = user.ConfirmPassword;
                 existing.UserName = user.UserName;
                 existing.RefreshTokens = user.RefreshTokens;

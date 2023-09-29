@@ -1,10 +1,7 @@
-﻿using Swashbuckle.AspNetCore.Annotations;
-
-using System;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
-using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Webapi.Models
 {
@@ -46,7 +43,7 @@ namespace Webapi.Models
         public string IdNumber { get; set; }
 
         [Required]
-        public List<string> AddressIds { get; set; }
+        public string AddressId { get; set; }
     }
 }
 

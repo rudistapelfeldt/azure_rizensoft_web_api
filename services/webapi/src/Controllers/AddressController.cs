@@ -14,9 +14,9 @@ namespace Webapi.Controllers
 	{
         AddressDomain _addressDomain;
 
-        private readonly ILogger<MyDataController> _logger;
+        private readonly ILogger<AddressController> _logger;
 
-        public AddressController(AddressDomain addressDomain, ILogger<MyDataController> logger)
+        public AddressController(AddressDomain addressDomain, ILogger<AddressController> logger)
         {
             _addressDomain = addressDomain;
             _logger = logger;

@@ -53,10 +53,9 @@ namespace Webapi.Domains
                         ErrorCode = "S04"
                     };
 
-                var addressIds = request.User.AddressIds;
-                var addressId = Guid.NewGuid().ToString();
-                addressIds.Add(addressId);
-                request.User.AddressIds = addressIds;
+                var sharedAddressGuid = Guid.NewGuid().ToString();
+
+                request.User.AddressId = sharedAddressGuid;
 
                 var salt = PasswordEncoder.GetSecureSalt();
 
@@ -74,13 +73,13 @@ namespace Webapi.Domains
                     ConfirmPassword = request.User.ConfirmPassword,
                     PasswordSalt = Convert.ToBase64String(salt),
                     IdNumber = request.User.IdNumber,
-                    AddressIds = addressIds,
+                    AddressId = request.User.AddressId,
                     Active = true
                 };
 
                 var address = new Address
                 {
-                    AddressId = addressId,
+                    AddressId = sharedAddressGuid,
                     AddressLine1 = request.Address.AddressLine1,
                     AddressLine2 = request.Address.AddressLine2,
                     Suburb = request.Address.Suburb,

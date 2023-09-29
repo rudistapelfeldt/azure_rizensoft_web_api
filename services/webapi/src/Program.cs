@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Azure.Identity;
+using System.IO;
 
 namespace Webapi
 {
@@ -22,7 +23,9 @@ namespace Webapi
                     {
                         if (context.HostingEnvironment.IsDevelopment())
                         {
-                            configBuilder.AddEnvFile("development.env");
+                            configBuilder.SetBasePath(Directory.GetCurrentDirectory())
+                                .AddJsonFile("appsettings.Development.json", true)
+                                .AddEnvironmentVariables();
                         }
                         else if (context.HostingEnvironment.IsStaging() || context.HostingEnvironment.IsProduction())
                         {

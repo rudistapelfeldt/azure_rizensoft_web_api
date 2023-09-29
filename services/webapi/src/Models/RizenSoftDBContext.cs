@@ -106,7 +106,7 @@ namespace Webapi.Models
                     .IsRequired()
                     .HasMaxLength(255);
 
-                entity.Property(e => e.AddressIds)
+                entity.Property(e => e.AddressId)
                     .IsRequired();
 
                 entity.Property(e => e.DateOfBirth);
@@ -115,9 +115,11 @@ namespace Webapi.Models
             });
 
             OnModelCreatingPartial(modelBuilder);
+            base.OnModelCreating(modelBuilder);
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
     }
 }
 

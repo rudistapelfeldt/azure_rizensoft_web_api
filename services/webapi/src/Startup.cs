@@ -39,7 +39,7 @@ namespace Webapi
             });
 
             string connectionString = this.Configuration.GetValue<string>("SQLCONNSTRING");
-            services.AddDbContext<MyDataContext>(builder =>
+            services.AddDbContext<RizenSoftDBContext>(builder =>
             {
                 builder.UseSqlServer(connectionString);
             });
