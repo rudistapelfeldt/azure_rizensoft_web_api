@@ -262,6 +262,7 @@ fi
 
 echo "Uploading database initialization file..."
 az storage blob upload \
+    --overwrite true \
     --container-name "$storage_container_name" \
     --file "${root_dir}/deploy/infra/webapi/webapidb.bacpac" \
     --account-key "$storage_account_key" \
