@@ -28,8 +28,8 @@ namespace Webapi.Controllers
             return await _userDomain.DeleteUser(id);
         }
 
-		[Authorize]
-		[HttpGet("/user/get")]
+        [Authorize]
+        [HttpGet("/user/get")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserResponse))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

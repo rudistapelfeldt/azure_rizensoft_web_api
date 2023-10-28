@@ -1,4 +1,5 @@
-﻿using Webapi.Models;
+﻿using Microsoft.AspNetCore.Http;
+using Webapi.Models;
 
 namespace Webapi.Interfaces
 {

@@ -66,6 +66,24 @@ namespace Webapi.Domains
             }
         }
 
+        public async Task<UserResponse> Search(string userName, string password)
+        {
+            var existing = await _context.User.Where(x => x.EmailAddress == userName && x.ConfirmPassword == password).ToListAsync();
+            if (existing != null)
+                return new UserResponse
+                {
+                    Success = true,
+                    User = existing
+                };
+            else
+                return new UserResponse
+                {
+                    Success = false,
+                    Error = "User does not exist",
+                    ErrorCode = "P0002"
+                };
+        }
+
         public async Task<UserResponse> GetById(int id)
         {
             var existing = await _context.User.Where(x => x.Id == id).ToListAsync();
