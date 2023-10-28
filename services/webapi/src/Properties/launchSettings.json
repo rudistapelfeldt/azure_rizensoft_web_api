@@ -4,7 +4,7 @@
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "http://localhost:5010",
+      "applicationUrl": "http://localhost:5010;https://rizensoft-azure-api.azurewebsites.net;https://rizensoft-azure-api-apim.azure-api.net",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
@@ -13,7 +13,8 @@
     "https": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:7290;http://localhost:5010",
+      "launchUrl": "swagger",
+      "applicationUrl": "https://localhost:7290;http://localhost:5010;https://rizensoft-azure-api.azurewebsites.net;https://rizensoft-azure-api-apim.azure-api.net",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

@@ -6,11 +6,11 @@ namespace Webapi.Helper
 {
     public class TokenHelper
     {
-        public const string Issuer = "https://apitemplaterizensoft.azurewebsites.net/";
+        public const string Issuer = "https://rizensoft-azure-api-apim.azure-api.net";
 
         public const string LocalIssuer = "https://localhost:7260";
 
-        public const string Audience = "https://apitemplaterizensoft.azurewebsites.net/";
+        public const string Audience = "https://rizensoft-azure-api-apim.azure-api.net";
 
         public const string LocalAudience = "https://localhost:7260";
 

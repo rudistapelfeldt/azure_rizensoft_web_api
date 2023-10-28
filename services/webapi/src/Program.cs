@@ -2,6 +2,7 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using webapi.Models;
 
 namespace Webapi
 {
@@ -25,11 +26,6 @@ namespace Webapi
                                 .AddJsonFile("appsettings.Development.json", true)
                                 .AddEnvironmentVariables();
                         }
-                        //else if (context.HostingEnvironment.IsStaging() || context.HostingEnvironment.IsProduction())
-                        //{
-                        //    var builtConfig = configBuilder.Build();
-                        //        configBuilder.AddAzureKeyVault(new Uri($"https://{builtConfig["KeyVaultName"]}.vault.azure.net/"), new DefaultAzureCredential());
-                        //}
                     });
 
                     webBuilder.UseStartup<Startup>();

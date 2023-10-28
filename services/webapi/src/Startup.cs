@@ -1,7 +1,5 @@
 using System;
-using System.Linq;
 using System.Text;
-using System.Web.Http;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,16 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Microsoft.Owin;
-using Microsoft.Owin.Cors;
-using Microsoft.Owin.Security.OAuth;
-using Microsoft.VisualBasic;
-using Owin;
-using Swashbuckle.Application;
-using Swashbuckle.AspNetCore.SwaggerUI;
 using webapi.Models;
-using webapi.Providers;
-using webapi.Swagger;
 using Webapi.Domains;
 using Webapi.Interfaces;
 using Webapi.Models;
@@ -43,7 +32,7 @@ namespace Webapi
         public void ConfigureServices(IServiceCollection services)
         {
             var builder = WebApplication.CreateBuilder();
-            string connectionString = this.Configuration.GetValue<string>("SQLCONNSTRING");
+            string connectionString = this.Configuration.GetConnectionString("SQLCONNSTRING");
             services.AddDbContext<RizenSoftDBContext>(builder =>
             {
                 builder.UseNpgsql(connectionString);
@@ -81,7 +70,7 @@ namespace Webapi
                 options.AddPolicy(name: RizenSoftAllowSpecificOrigins,
                                   policy =>
                                   {
-                                      policy.WithOrigins("https://localhost:7290", "https://rizensoft-azure-api.azurewebsites.net");
+                                      policy.WithOrigins("https://localhost:7290","https://rizensoft-azure-api.azurewebsites.net","https://rizensoft-azure-api-apim.azure-api.net");
                                       policy.AllowAnyOrigin()
                                       .AllowAnyMethod()
                                       .AllowAnyHeader();
@@ -104,10 +93,10 @@ namespace Webapi
             {
                 o.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidIssuer = builder.Configuration["Jwt:Issuer"],
-                    ValidAudience = builder.Configuration["Jwt:Audience"],
+                    ValidIssuer = builder.Configuration["AppSettings:Issuer"],
+                    ValidAudience = builder.Configuration["AppSettings:Audience"],
                     IssuerSigningKey = new SymmetricSecurityKey
-                    (Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
+                    (Encoding.UTF8.GetBytes(builder.Configuration["AppSettings:Key"])),
                     ValidateIssuer = true,
                     ValidateAudience = true,
                     ValidateLifetime = false,
@@ -121,8 +110,13 @@ namespace Webapi
             services.AddApplicationInsightsTelemetry();
         }
 
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, IHostEnvironment env)
         {
+            if (env.IsStaging() || env.IsProduction())
+            {
+                ConfigureServices(((IServiceCollection)app).Configure<AppSettings>(this.Configuration.GetRequiredSection("AppSettings")));
+            }
+
             app.UseStaticFiles();
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.

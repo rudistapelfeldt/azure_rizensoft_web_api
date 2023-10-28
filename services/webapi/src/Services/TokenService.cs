@@ -20,7 +20,7 @@ namespace Webapi.Services
         public TokenService(IOptions<AppSettings> appSettings)
         {
             _appSettings = appSettings.Value;
-            _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appSettings.Secret));
+            _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_appSettings.Key));
         }
 
         public string CreateToken(User user)
