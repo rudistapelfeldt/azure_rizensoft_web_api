@@ -116,12 +116,7 @@ namespace Webapi
         }
 
         public void Configure(IApplicationBuilder app, IHostEnvironment env)
-        {
-            if (env.IsStaging() || env.IsProduction())
-            {
-                ConfigureServices(((IServiceCollection)app).Configure<AppSettings>(this.Configuration.GetRequiredSection("AppSettings")));
-            }
-
+        { 
             app.UseStaticFiles();
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
