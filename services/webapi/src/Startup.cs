@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.Swagger;
 using webapi.Models;
 using Webapi.Domains;
 using Webapi.Interfaces;
@@ -32,7 +33,11 @@ namespace Webapi
         public void ConfigureServices(IServiceCollection services)
         {
             var builder = WebApplication.CreateBuilder();
-            string connectionString = this.Configuration.GetConnectionString("SQLCONNSTRING");
+            string connectionString;
+            if (builder.Environment.IsDevelopment())
+                connectionString = builder.Configuration["SQLCONNSTRING"];
+            else
+                connectionString = this.Configuration.GetConnectionString("SQLCONNSTRING");
             services.AddDbContext<RizenSoftDBContext>(builder =>
             {
                 builder.UseNpgsql(connectionString);

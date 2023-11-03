@@ -29,7 +29,7 @@ namespace Webapi
                     });
 
                     webBuilder.UseStartup<Startup>();
-                        
+                    webBuilder.UseUrls("https://localhost:7290", "https://rizensoft-azure-api.azurewebsites.net");
                 });
         }
     }
